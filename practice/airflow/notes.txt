@@ -1,0 +1,32 @@
+export PS1="\[\e[34m\]\w\[\e[m\]>\n-->"
+gsutil cat gs://europe-west1-spikey-test-en-24d7517b-bucket/airflow.cfg
+
+# command to update python packages inside composer environment
+gcloud composer environments update spikey-test-environment \
+--update-pypi-packages-from-file /home/alexandrbelui2/requirements.txt \
+--location europe-west1 \
+--async
+
+# delete dags in a given environment
+gcloud composer environments storage dags delete \
+--environment spikey-test-environment \
+--location europe-west1 gcs_gcs.py
+
+# list all existing environments in a given composer
+gcloud composer environments list \
+--locations=europe-west1
+
+# delete the environment of a given composer
+# NOTE: deleting an environment doesn't delete its underlying storage bucket!
+gcloud composer environments delete spikey-test-environment \
+--location europe-west1
+
+# query to fill the table for practice
+INSERT INTO spikey_composer_dataset.spikey_products_table (product_name, product_id, product_price, sale)
+VALUES ('Trendy Wrist Friendship Band', 'FUR-BO-10001798', '$4.99', False),
+       ('Led Light Snowman Christmas Decoration with Tree', 'OFF-AR-10000246', '$5.35', True),
+       ('Merry Christmas Stocking Decoration', 'OFF-ST-10004186', '$0.46', True)
+
+# query to run in composer
+SELECT product_id, product_name FROM `valkoiset.spikey_composer_dataset.spikey_products_table`
+WHERE sale = True

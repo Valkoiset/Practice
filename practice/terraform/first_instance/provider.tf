@@ -1,0 +1,5 @@
+provider "google" {
+  project = "valkoiset"
+  region = "europe-west1-b"
+  credentials = "${file("${var.path}/secrets.json")}"
+}

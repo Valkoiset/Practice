@@ -1,0 +1,10 @@
+### Section 3
+## 7. Credentials & First Instance
+# had to add -chdir argument because in course it was shown just like terraform init first_instance/
+# so seems like syntax has changed a bit
+# being in root folder run:
+terraform -chdir=first_instance init
+terraform -chdir=first_instance plan
+terraform -chdir=first_instance apply
+terraform -chdir=first_instance destroy
+
